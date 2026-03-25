@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explainable AI Code Generation Assistant</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css" id="theme">
+  <style>
+    :root {
+      --accent: #146b8c;
+    }
+    .reveal h1, .reveal h2, .reveal h3 {
+      color: var(--accent);
+    }
+    .reveal .slides section img {
+      border: 0;
+      box-shadow: none;
+    }
+    .video-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .video-wrap video {
+      width: 90%;
+      max-width: 1100px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    }
+    .small {
+      font-size: 0.8em;
+    }
+    table.metrics {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.65em;
+    }
+    table.metrics th, table.metrics td {
+      border: 1px solid #ddd;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    table.metrics th:first-child, table.metrics td:first-child {
+      text-align: left;
+    }
+    table.metrics thead th {
+      background: #f3f7f9;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h2>Explainable AI Code Generation Assistant</h2>
+        <p>Author: Iuliia Liutova<br>Supervisor: Alexander Avdiushenko</p>
+        <p class="small">Neapolis University Paphos</p>
+      </section>
+
+      <section>
+        <h2>Problem</h2>
+        <div style="display:flex; gap:24px; align-items:flex-start;">
+          <div style="width:40%;">
+            <ul>
+              <li>LLMs write code, but do not explain decisions clearly.</li>
+              <li>No mapping between summary and code.</li>
+            </ul>
+          </div>
+          <div style="width:60%;">
+            <img src="problem.png" alt="Problem illustration" style="width:75%;">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Goal</h2>
+        <p>Build a code assistant that <strong>generates code and human-friendly explanations</strong> aligned with the code.</p>
+        <img src="goal.png" alt="Goal illustration" style="width:100%;">
+      </section>
+
+      <section>
+        <h2>High-level architecture</h2>
+        <svg viewBox="0 0 980 380" style="width:95%; height:auto;">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
+            </marker>
+          </defs>
+          <rect x="40" y="30" width="180" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+          <text x="130" y="73" text-anchor="middle" font-size="24">Repo</text>
+
+          <rect x="340" y="30" width="220" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+          <text x="450" y="64" text-anchor="middle" font-size="24">Updated</text>
+          <text x="450" y="92" text-anchor="middle" font-size="24">Repo</text>
+
+          <rect x="180" y="165" width="180" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+          <text x="270" y="208" text-anchor="middle" font-size="24">Diff</text>
+
+          <rect x="620" y="165" width="220" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+          <text x="730" y="208" text-anchor="middle" font-size="24">Explanation</text>
+
+          <rect x="355" y="285" width="260" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+          <text x="485" y="328" text-anchor="middle" font-size="24">Mapping</text>
+
+          <line x1="220" y1="65" x2="340" y2="65" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <text x="280" y="52" text-anchor="middle" font-size="18">AI Agent</text>
+
+          <line x1="115" y1="100" x2="235" y2="165" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="450" y1="100" x2="305" y2="165" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="360" y1="200" x2="620" y2="200" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="250" y1="235" x2="430" y2="285" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="710" y1="235" x2="540" y2="285" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+        </svg>
+      </section>
+
+      <section>
+        <h2>Code Generation with Explanation Mapping</h2>
+        <div class="video-wrap">
+          <video controls preload="metadata">
+            <source src="video_demo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </section>
+
+      <section>
+        <h2>Dataset: nn.labml.ai</h2>
+        <p>Collection of Machine Learning and Deep Learning algorithms with human-written explanations.</p>
+        <p>Each example is structured as aligned pairs:</p>
+        <ul>
+          <li>Explanation1 ↔ Code segment1</li>
+          <li>Explanation2 ↔ Code segment2</li>
+          <li>...</li>
+          <li>ExplanationN ↔ Code segmentN</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Metric: LLM-as-a-judge, Judge Model: o3</h2>
+        <table class="metrics">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Price / 1M</th>
+              <th>Mean</th>
+              <th>Distillation</th>
+              <th>GAN</th>
+              <th>LSTM</th>
+              <th>BatchNorm</th>
+              <th>Adam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>gpt-4o-mini</td>
+              <td>$0.15</td>
+              <td>0.416</td>
+              <td>0.50</td>
+              <td>0.55</td>
+              <td>0.25</td>
+              <td>0.28</td>
+              <td>0.50</td>
+            </tr>
+            <tr>
+              <td>gpt-4.1-mini</td>
+              <td>$0.40</td>
+              <td>0.696</td>
+              <td>0.82</td>
+              <td>0.78</td>
+              <td>0.83</td>
+              <td>0.55</td>
+              <td>0.50</td>
+            </tr>
+            <tr>
+              <td>gpt-4.1</td>
+              <td>$2.00</td>
+              <td>0.786</td>
+              <td>0.80</td>
+              <td>0.65</td>
+              <td>0.83</td>
+              <td>0.80</td>
+              <td>0.85</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Summary</h2>
+        <p>Done:</p>
+        <ol>
+          <li>Plugin prototype</li>
+          <li>Initial evaluation</li>
+        </ol>
+        <p>Future steps:</p>
+        <ol>
+          <li>Extend the dataset with more diverse domains</li>
+          <li>Improve explanation quality iteratively</li>
+          <li>Add support for other AI coding agents</li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      controls: true,
+      progress: true,
+      transition: "slide"
+    });
+  </script>
+</body>
+</html>
