@@ -48,6 +48,26 @@
     table.metrics thead th {
       background: #f3f7f9;
     }
+    .results-slide h2 {
+      margin-bottom: 0.25em;
+      font-size: 1.15em;
+    }
+    .results-slide table.metrics {
+      font-size: 0.54em;
+      margin-top: 0.2em;
+    }
+    .results-slide table.metrics th,
+    .results-slide table.metrics td {
+      padding: 6px 8px;
+    }
+    .results-slide table.metrics th:nth-child(n+4) {
+      background: #dff0f8;
+      color: #0e4f67;
+    }
+    .results-slide table.metrics td:nth-child(n+4) {
+      background: #f1f9fd;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -64,8 +84,8 @@
         <div style="display:flex; gap:24px; align-items:flex-start;">
           <div style="width:40%;">
             <ul>
-              <li>LLMs write code, but do not explain decisions clearly.</li>
-              <li>No mapping between summary and code.</li>
+              <li>LLMs write code, but do not explain decisions clearly</li>
+              <li>No mapping between summary and code</li>
             </ul>
           </div>
           <div style="width:60%;">
@@ -82,7 +102,7 @@
 
       <section>
         <h2>High-level architecture</h2>
-        <svg viewBox="0 0 980 380" style="width:95%; height:auto;">
+        <svg viewBox="0 0 980 380" style="width:100%; height:auto;">
           <defs>
             <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
               <path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
@@ -130,14 +150,14 @@
         <p>Collection of Machine Learning and Deep Learning algorithms with human-written explanations.</p>
         <p>Each example is structured as aligned pairs:</p>
         <ul>
-          <li>Explanation1 ↔ Code segment1</li>
-          <li>Explanation2 ↔ Code segment2</li>
-          <li>...</li>
-          <li>ExplanationN ↔ Code segmentN</li>
+          <li>\(\text{Explanation}_{1} \leftrightarrow \text{Code segment}_{1}\)</li>
+          <li>\(\text{Explanation}_{2} \leftrightarrow \text{Code segment}_{2}\)</li>
+          <li>\(\dots\)</li>
+          <li>\(\text{Explanation}_{n} \leftrightarrow \text{Code segment}_{n}\)</li>
         </ul>
       </section>
 
-      <section>
+      <section class="results-slide">
         <h2>Metric: LLM-as-a-judge, Judge Model: o3</h2>
         <table class="metrics">
           <thead>
@@ -205,12 +225,20 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/math/math.js"></script>
   <script>
     Reveal.initialize({
       hash: true,
       slideNumber: true,
       controls: true,
       progress: true,
+      math: {
+        mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+        tex: {
+          inlineMath: [["\\(", "\\)"], ["$", "$"]]
+        }
+      },
+      plugins: [ RevealMath.MathJax3 ],
       transition: "slide"
     });
   </script>
