@@ -13,6 +13,10 @@
     .reveal h1, .reveal h2, .reveal h3 {
       color: var(--accent);
     }
+    .reveal h2 {
+      font-size: 1.3em;
+      margin-bottom: 0.35em;
+    }
     .reveal .slides section img {
       border: 0;
       box-shadow: none;
@@ -29,8 +33,19 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
     }
+    .video-slide h2 {
+      margin-bottom: 0.1em;
+    }
+    .video-slide .video-wrap {
+      min-height: calc(100vh - 150px);
+    }
+    .video-slide .video-wrap video {
+      width: 100%;
+      max-width: 2200px;
+      max-height: 95vh;
+    }
     .small {
-      font-size: 0.8em;
+      font-size: 1em;
     }
     table.metrics {
       width: 100%;
@@ -52,9 +67,11 @@
     table.metrics thead th {
       background: #f3f7f9;
     }
+    .results-slide {
+      text-align: left;
+    }
     .results-slide h2 {
-      margin-bottom: 0.25em;
-      font-size: 1.15em;
+      text-align: center;
     }
     .results-slide table.metrics {
       font-size: 0.54em;
@@ -72,12 +89,55 @@
       background: #f1f9fd;
       font-weight: 600;
     }
+    .summary-slide {
+      text-align: left;
+    }
+    .summary-slide h2 {
+      text-align: center;
+    }
+    .summary-slide ol,
+    .summary-slide p {
+      margin-left: 0.6em;
+    }
+    .reveal .slide-number {
+      bottom: 24px;
+      right: 115px;
+      font-size: 0.70em;
+      font-weight: 500;
+      color: #0e4f67;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+    }
+    .analysis-slide {
+      text-align: left;
+    }
+    .analysis-slide ul {
+      margin-left: 0.6em;
+    }
+    .judge-slide h2 {
+      text-align: center;
+    }
+    .result-slide h2 {
+      text-align: center;
+    }
+    .prompt-box {
+      font-family: "Courier New", monospace;
+      font-size: 0.58em;
+      line-height: 1.35;
+      background: #f6fbfe;
+      border: 1px solid #cfe3ef;
+      border-radius: 10px;
+      padding: 12px 14px;
+      white-space: pre-wrap;
+    }
   </style>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
-      <section>
+      <section class="title-slide">
         <h2>Explainable AI Code Generation Assistant</h2>
         <p>Author: Iuliia Liutova<br>Supervisor: Alexander Avdiushenko</p>
         <p class="small">Neapolis University Paphos</p>
@@ -85,7 +145,7 @@
 
       <section>
         <h2>Problem</h2>
-        <div style="display:flex; gap:24px; align-items:flex-start;">
+        <div style="display:flex; gap:0; align-items:flex-start;">
           <div style="width:40%;">
             <ul>
               <li>LLMs write code, but do not explain decisions clearly</li>
@@ -93,7 +153,7 @@
             </ul>
           </div>
           <div style="width:60%;">
-            <img src="problem.png" alt="Problem illustration" style="width:75%;">
+            <img src="problem.png" alt="Problem illustration" style="width:104%; max-width:none; margin-left:2%;">
           </div>
         </div>
       </section>
@@ -106,10 +166,10 @@
 
       <section>
         <h2>High-level architecture</h2>
-        <svg viewBox="0 0 980 380" style="width:100%; height:auto;">
+        <svg viewBox="0 0 980 380" style="width:106%; max-width:none; height:auto; margin-left:-3%;">
           <defs>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
+            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="2" orient="auto">
+              <path d="M0,0 L0,4 L6,2 z" fill="#333"></path>
             </marker>
           </defs>
           <rect x="40" y="30" width="180" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
@@ -128,19 +188,19 @@
           <rect x="355" y="285" width="260" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
           <text x="485" y="328" text-anchor="middle" font-size="24">Mapping</text>
 
-          <line x1="220" y1="65" x2="340" y2="65" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="220" y1="65" x2="340" y2="65" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
           <text x="280" y="52" text-anchor="middle" font-size="18">AI Agent</text>
 
-          <line x1="115" y1="100" x2="235" y2="165" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
-          <line x1="450" y1="100" x2="305" y2="165" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
-          <line x1="360" y1="200" x2="620" y2="200" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
-          <line x1="250" y1="235" x2="430" y2="285" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
-          <line x1="710" y1="235" x2="540" y2="285" stroke="#333" stroke-width="3" marker-end="url(#arrow)"></line>
+          <line x1="115" y1="100" x2="235" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+          <line x1="450" y1="100" x2="305" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+          <line x1="360" y1="200" x2="620" y2="200" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+          <line x1="250" y1="235" x2="430" y2="285" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+          <line x1="710" y1="235" x2="540" y2="285" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
         </svg>
       </section>
 
-      <section>
-        <h2>Code Generation with Explanation Mapping</h2>
+      <section class="video-slide">
+        <h2>Code with Explanations</h2>
         <div class="video-wrap">
           <video controls preload="metadata">
             <source src="video_demo.mp4" type="video/mp4">
@@ -161,8 +221,20 @@
         </ul>
       </section>
 
+      <section class="analysis-slide judge-slide">
+        <h2>LLM-as-a-Judge Metric</h2>
+        <p>Judge model: OpenAI o3<br>Prompt fragment:</p>
+        <div class="prompt-box">Scoring approximate guide for "metric":
+0.0-0.1 = awful quality: totally wrong or no segmentations and explanations
+0.1-0.3 = poor quality: wrong segmentation, vague or incorrect explanations, major concepts missing
+0.4-0.6 = acceptable quality: roughly correct structure, explanations partially match the reference
+0.7-0.9 = good quality: logical segmentation, accurate explanations, most concepts covered
+1.0 = excellent: segmentation, explanations and coverage are equivalent by quality to the reference</div>
+      </section>
+
       <section class="results-slide">
-        <h2>Metric: LLM-as-a-judge, Judge Model: o3</h2>
+        <h2>Evaluation Results</h2>
+        <p class="small">Batch: 5 algorithms<br>Representation: Bullet Points, High Detail</p>
         <table class="metrics">
           <thead>
             <tr>
@@ -211,7 +283,16 @@
         </table>
       </section>
 
-      <section>
+      <section class="analysis-slide result-slide">
+        <h2>Result Interpretation</h2>
+        <ul>
+          <li><strong>LSTM = 0.25</strong> (gpt-4o-mini): Covers only a small part of the functionality, segmentation is coarse, the few explanations given are mostly correct but omit important reasoning.</li>
+          <li><strong>Adam = 0.85</strong> (gpt-4.1): Covers every major logical block, segmentation is coarser than the reference, descriptions are concise yet technically correct.</li>
+          <li><strong>Main takeaway</strong>: Smaller and cheaper models tend to hallucinate mappings, resulting in incomplete code coverage and lower metric scores.</li>
+        </ul>
+      </section>
+
+      <section class="summary-slide">
         <h2>Summary</h2>
         <p>Done:</p>
         <ol>
@@ -233,7 +314,7 @@
   <script>
     Reveal.initialize({
       hash: true,
-      slideNumber: true,
+      slideNumber: "c/t",
       controls: true,
       progress: true,
       math: {

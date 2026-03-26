@@ -44,7 +44,8 @@
 \end{frame}
 
 \begin{frame}{Problem}
-\begin{columns}[T]
+\setlength{\columnsep}{0pt}
+\begin{columns}[T,totalwidth=\textwidth]
 
 \begin{column}{0.4\textwidth}
 \begin{itemize}
@@ -57,7 +58,7 @@
 \vspace{-0.9cm}
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\linewidth]{problem.png}
+    \hspace*{0.02\linewidth}\includegraphics[width=1.04\linewidth]{problem.png}
 \end{figure}
 \end{column}
 
@@ -147,12 +148,12 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 
 \begin{frame}{High-level architecture}
 \centering
-\resizebox{0.95\linewidth}{!}{%
+\resizebox{1.02\linewidth}{!}{%
 \begin{tikzpicture}[
     >=Latex,
     every node/.style={font=\small, align=center},
     block/.style={draw, rounded corners, minimum width=2.4cm, minimum height=1.0cm},
-    line/.style={->, thick}
+    line/.style={->, thin}
 ]
 
 % Nodes
@@ -179,11 +180,11 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 }
 \end{frame}
 
-\begin{frame}{Code Generation with Explanation Mapping}
+\begin{frame}{Code with Explanations}
 \centering
 \ifdefined\HCode
 % HTML build (e.g., via make4ht): render an inline video player.
-\HCode{<video controls preload="metadata" style="width:90%; max-width:1100px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.18);"><source src="video_demo.mp4" type="video/mp4">Your browser does not support the video tag.</video>}
+\HCode{<video controls preload="metadata" style="width:100%; max-width:2200px; max-height:95vh; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.18);"><source src="video_demo.mp4" type="video/mp4">Your browser does not support the video tag.</video>}
 \else
 % PDF build fallback.
 \Large Video demo is available in \texttt{video\_demo.mp4}
@@ -208,7 +209,30 @@ Each example is structured as aligned pairs:
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Metric: LLM-as-a-judge, Judge Model: o3}
+\begin{frame}[t]{LLM-as-a-Judge Prompt}
+\raggedright
+\small
+Judge model: OpenAI o3\\
+Judge prompt excerpt:
+\vspace{0.15cm}
+
+\begin{block}{Scoring approximate guide for "metric"}
+\ttfamily
+0.0-0.1 = awful quality: totally wrong or no segmentations and explanations\\
+0.1-0.3 = poor quality: wrong segmentation, vague or incorrect explanations, major concepts missing\\
+0.4-0.6 = acceptable quality: roughly correct structure, explanations partially match the reference\\
+0.7-0.9 = good quality: logical segmentation, accurate explanations, most concepts covered\\
+1.0 = excellent: segmentation, explanations and coverage are equivalent by quality to the reference
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{Metric: LLM-as-a-judge\\Model: o3}
+\centering
+\raggedright
+\small Batch: 5 algorithms\\
+Representation: Bullet Points, High Detail
+\vspace{0.2cm}
+
 \begin{table}[h]
 \centering
 \begin{adjustbox}{width=\textwidth}
@@ -228,7 +252,18 @@ gpt-4.1      & \$2.00 & 0.786 & 0.80 & 0.65 & 0.83 & 0.80 & 0.85 \\
 \end{table}
 \end{frame}
 
-\begin{frame}{Summary}
+\begin{frame}[t]{Result Interpretation}
+\raggedright
+\begin{itemize}
+    \item \textbf{LSTM = 0.25} (gpt-4o-mini): explanation is often generic and weakly grounded in concrete code changes.
+    \item \textbf{Adam = 0.85} (gpt-4.1): explanation is algorithm-specific, technically precise, and aligned with the produced code.
+    \item Main signal: quality differences are most visible on optimization-heavy algorithms.
+    \item Next focus: prompt tuning + targeted regression checks on low-scoring tasks (LSTM, BatchNorm).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Summary}
+\raggedright
 Done:
 \begin{enumerate}
     \item Plugin prototype
