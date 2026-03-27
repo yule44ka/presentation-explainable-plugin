@@ -17,6 +17,23 @@
       font-size: 1.3em;
       margin-bottom: 0.35em;
     }
+    .title-slide h2 {
+      font-size: 1.75em;
+    }
+    .dataset-slide {
+      text-align: center;
+    }
+    .dataset-slide h2 {
+      text-align: center;
+    }
+    .dataset-slide ul {
+      margin-left: 0;
+      padding-left: 1.2em;
+      text-align: left;
+    }
+    .dataset-slide li {
+      text-align: left;
+    }
     .reveal .slides section img {
       border: 0;
       box-shadow: none;
@@ -33,16 +50,26 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
     }
+    .reveal .slides section.video-slide {
+      height: 100%;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
     .video-slide h2 {
-      margin-bottom: 0.1em;
+      margin-bottom: 0.12em;
+      flex: 0 0 auto;
     }
     .video-slide .video-wrap {
-      min-height: calc(100vh - 150px);
+      flex: 1 1 auto;
+      min-height: 0;
+      align-items: flex-start;
     }
     .video-slide .video-wrap video {
-      width: 100%;
-      max-width: 2200px;
-      max-height: 95vh;
+      display: block;
+      width: 109%;
+      max-width: 2400px;
+      max-height: 94vh;
     }
     .small {
       font-size: 1em;
@@ -153,7 +180,7 @@
             </ul>
           </div>
           <div style="width:60%;">
-            <img src="problem.png" alt="Problem illustration" style="width:104%; max-width:none; margin-left:2%;">
+            <img src="problem.png" alt="Problem illustration" style="width:90%; max-width:none; margin-left:0; margin-top:12px;">
           </div>
         </div>
       </section>
@@ -209,7 +236,7 @@
         </div>
       </section>
 
-      <section>
+      <section class="dataset-slide">
         <h2>Dataset: nn.labml.ai</h2>
         <p>Collection of Machine Learning and Deep Learning algorithms with human-written explanations.</p>
         <p>Each example is structured as aligned pairs:</p>
