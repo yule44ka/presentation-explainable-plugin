@@ -21,13 +21,19 @@
       font-size: 1.75em;
     }
     .dataset-slide {
-      text-align: center;
+      text-align: left;
     }
     .dataset-slide h2 {
       text-align: center;
     }
+    .dataset-slide .dataset-list {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
     .dataset-slide ul {
-      margin-left: 0;
+      width: fit-content;
+      margin: 0.6em 0 0;
       padding-left: 1.2em;
       text-align: left;
     }
@@ -240,12 +246,14 @@
         <h2>Dataset: nn.labml.ai</h2>
         <p>Collection of Machine Learning and Deep Learning algorithms with human-written explanations.</p>
         <p>Each example is structured as aligned pairs:</p>
-        <ul>
-          <li>\(\text{Explanation}_{1} \leftrightarrow \text{Code segment}_{1}\)</li>
-          <li>\(\text{Explanation}_{2} \leftrightarrow \text{Code segment}_{2}\)</li>
-          <li>\(\dots\)</li>
-          <li>\(\text{Explanation}_{n} \leftrightarrow \text{Code segment}_{n}\)</li>
-        </ul>
+        <div class="dataset-list">
+          <ul>
+            <li>\(\text{Explanation}_{1} \leftrightarrow \text{Code segment}_{1}\)</li>
+            <li>\(\text{Explanation}_{2} \leftrightarrow \text{Code segment}_{2}\)</li>
+            <li>\(\dots\)</li>
+            <li>\(\text{Explanation}_{n} \leftrightarrow \text{Code segment}_{n}\)</li>
+          </ul>
+        </div>
       </section>
 
       <section class="analysis-slide judge-slide">
