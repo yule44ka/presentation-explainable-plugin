@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{times}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{leftmargin=1.3em, topsep=0.2em, itemsep=0.2em}
+
+\title{\textbf{Explainable AI Code Generation Assistant:\\
+An Extended Abstract}}
+\author{Iuliia Liutova \\ Neapolis University Paphos \\ Supervisor: Alexander Avdiushenko}
+\date{}
+
+\begin{document}
+\maketitle
+
+\textbf{Abstract.}
+Large language models can generate useful code, but their explanations are often generic or poorly grounded in the implementation. This limits trust and slows review. We present an explainable AI code generation assistant that produces code together with human-friendly explanations aligned to code regions. The workflow compares the original and updated repository states, extracts a diff, generates a structured explanation, and maps explanation units back to code segments. We report an initial evaluation on machine learning algorithm implementations with aligned explanation--code references. Preliminary results show that stronger models produce substantially better grounded explanations, while weaker models remain generic on conceptually dense tasks such as LSTM and BatchNorm.
+
+\section*{1. Introduction}
+AI coding assistants can increasingly solve non-trivial tasks, yet explanation quality remains a major barrier to adoption. In many tools, users receive either a short summary that is hard to connect to the produced implementation, or a long narrative without clear grounding in modified lines.
+
+This issue becomes more important as coding agents move from autocomplete to task-level repository editing. Recent work highlights the value of natural-language representations for code modification \cite{tang2025}, documentation generation \cite{yang2025}, outline-based code understanding \cite{shi2024}, and transparent AI coding assistants \cite{ye2025}. However, a practical gap remains between explanation generation and explanation-to-code alignment.
+
+This project addresses that gap with an assistant designed around three properties: code generation, human-friendly explanation, and explicit mapping from explanation units to code changes.
+
+\section*{2. System Overview}
+The assistant is organized around repository comparison rather than free-form post-hoc summarization. Given an input repository and a user task, an AI coding agent produces an updated repository. The system computes a diff, generates an explanation of the change set, and combines both into an explicit mapping layer.
+
+The mapping layer is the main design contribution. Instead of showing only a global summary, the system decomposes explanations into smaller units and associates them with code spans or diff hunks. In practice, this allows users to inspect an explanation and immediately locate the relevant implementation fragment.
+
+The current prototype follows a plugin-style workflow for code generation plus explanation.
+
+\section*{3. Evaluation Setup}
+To study explanation quality, we use a reference-style dataset derived from machine learning and deep learning implementations from \texttt{nn.labml.ai} \cite{labml}. Each example contains aligned explanation--code pairs, making the collection suitable for evaluating structure, coverage, and technical specificity.
+
+The initial evaluation uses five algorithms: Distillation, GAN, LSTM, BatchNorm, and Adam. Explanations are generated as detailed bullet points. Outputs are judged with an LLM-as-a-judge protocol using OpenAI o3 as the evaluator. Scores range from 0.0 to 1.0, where higher values indicate better agreement with the reference in segmentation, explanation quality, and concept coverage.
+
+Table~\ref{tab:results} reports preliminary scores for three models.
+
+\begin{table}[h]
+\centering
+\scriptsize
+\begin{tabular}{lccccccc}
+\toprule
+& & & \multicolumn{5}{c}{Algorithms} \\
+\cmidrule(lr){4-8}
+Model & Price / 1M & Mean & Distillation & GAN & LSTM & BatchNorm & Adam \\
+\midrule
+gpt-4o-mini  & \$0.15 & 0.416 & 0.50 & 0.55 & 0.25 & 0.28 & 0.50 \\
+gpt-4.1-mini & \$0.40 & 0.696 & 0.82 & 0.78 & 0.83 & 0.55 & 0.50 \\
+gpt-4.1      & \$2.00 & 0.786 & 0.80 & 0.65 & 0.83 & 0.80 & 0.85 \\
+\bottomrule
+\end{tabular}
+\caption{Preliminary explanation-quality results across five algorithms.}
+\label{tab:results}
+\end{table}
+
+The results show that model differences become especially visible on conceptually dense algorithms. For example, gpt-4o-mini performs poorly on LSTM (0.25), where explanations become generic and weakly grounded in implementation details. In contrast, gpt-4.1 reaches 0.85 on Adam, where the explanation is more algorithm-specific and technically aligned with the code.
+
+\section*{4. Discussion and Next Steps}
+If AI-generated code is to become trustworthy, users need not only correct code but also interpretable evidence about what changed and why. A diff alone does not capture semantic intent, while a free-form summary does not sufficiently ground that intent in code. The proposed combination of diff-based analysis and explicit explanation--code mapping offers a more transparent interaction model.
+
+The current prototype provides two encouraging signals. First, the architecture is lightweight and compatible with existing coding-agent workflows because it can be layered on top of repository editing. Second, the initial evaluation indicates that explanation quality is measurable and that stronger models already perform usefully on some tasks.
+
+Several limitations remain. The current benchmark is small, focused on educational machine learning code, and relies on LLM-as-a-judge evaluation. Future work will extend the dataset, improve prompts for low-scoring cases, add regression checks, and evaluate multiple AI coding agents.
+
+\section*{5. Conclusion}
+This extended abstract presented an explainable AI code generation assistant designed to generate code together with aligned explanations. The system uses repository comparison, structured explanation generation, and explanation-to-code mapping to make AI-produced changes easier to inspect and understand. Preliminary results suggest that grounded explanation quality is achievable but strongly model-dependent, reinforcing the need to optimize explainability explicitly.
+
+\begin{thebibliography}{9}
+
+\bibitem{tang2025}
+Tang, N. et al.:
+NaturalEdit: Code Modification through Direct Interaction with Adaptive Natural Language Representation.
+arXiv preprint arXiv:2510.04494 (2025)
+
+\bibitem{yang2025}
+Yang, D. et al.:
+DocAgent: A Multi-Agent System for Automated Code Documentation Generation.
+arXiv preprint arXiv:2504.08725 (2025)
+
+\bibitem{shi2024}
+Shi, K. et al.:
+Natural Language Outlines for Code: Literate Programming in the LLM Era.
+arXiv preprint arXiv:2408.04820 (2024)
+
+\bibitem{ye2025}
+Ye, R. et al.:
+Beyond Autocomplete: Designing CopilotLens Towards Transparent and Explainable AI Coding Agents.
+arXiv preprint arXiv:2506.20062 (2025)
+
+\bibitem{labml}
+labml.ai:
+Annotated Deep Learning Paper Implementations.
+\texttt{https://nn.labml.ai/}
+
+\end{thebibliography}
+
+\appendix
+\section*{Appendix: Project Artifacts}
+Presentation: \texttt{https://yule44ka.github.io/presentation-explainable-plugin/}
+
+GitHub repository: \texttt{https://github.com/yule44ka/explainable-ai-plugin/}
+
+\end{document}
