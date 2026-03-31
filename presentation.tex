@@ -160,7 +160,7 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 \node[block] (repo) at (0,3) {Repo};
 \node[block] (updatedrepo) at (5,3) {Updated\\Repo};
 
-\node[block] (diff) at (2.5,1.2) {Diff};
+\node[block, minimum width=3.4cm] (diff) at (2.5,1.2) {Diff +\\Agent trace};
 \node[block] (explanation) at (8,1.2) {Explanation};
 
 \node[block, minimum width=3.0cm] (mapping) at (5.2,-0.4) {Mapping};
@@ -209,11 +209,11 @@ Each example is structured as aligned pairs:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{LLM-as-a-Judge Prompt}
+\begin{frame}[t]{LLM-as-a-Judge Metric}
 \raggedright
 \small
 Judge model: OpenAI o3\\
-Judge prompt excerpt:
+Prompt fragment:
 \vspace{0.15cm}
 
 \begin{block}{Scoring approximate guide for "metric"}
@@ -226,7 +226,7 @@ Judge prompt excerpt:
 \end{block}
 \end{frame}
 
-\begin{frame}[t]{Metric: LLM-as-a-judge\\Model: o3}
+\begin{frame}[t]{Evaluation Results}
 \centering
 \raggedright
 \small Batch: 5 algorithms\\
@@ -255,10 +255,9 @@ gpt-4.1      & \$2.00 & 0.786 & 0.80 & 0.65 & 0.83 & 0.80 & 0.85 \\
 \begin{frame}[t]{Result Interpretation}
 \raggedright
 \begin{itemize}
-    \item \textbf{LSTM = 0.25} (gpt-4o-mini): explanation is often generic and weakly grounded in concrete code changes.
-    \item \textbf{Adam = 0.85} (gpt-4.1): explanation is algorithm-specific, technically precise, and aligned with the produced code.
-    \item Main signal: quality differences are most visible on optimization-heavy algorithms.
-    \item Next focus: prompt tuning + targeted regression checks on low-scoring tasks (LSTM, BatchNorm).
+    \item \textbf{LSTM = 0.25} (gpt-4o-mini): Covers only a small part of the functionality, segmentation is coarse.
+    \item \textbf{Adam = 0.85} (gpt-4.1): Covers almost all blocks but less detalised, the descriptions are correct.
+    \item \textbf{Main takeaway}: Smaller and cheaper models tend to hallucinate mappings, resulting in incomplete code coverage and lower metric scores.
 \end{itemize}
 \end{frame}
 
@@ -271,9 +270,10 @@ Done:
 \end{enumerate}
 Future steps:
 \begin{enumerate}
+    \item Add deterministic metrics for evaluation
+    \item Experiment with using agents for explanations
     \item Extend the dataset with more diverse domains
-    \item Improve explanation quality iteratively
-    \item Add support for other AI coding agents
+    \item Add support for other agents
 \end{enumerate}
 \end{frame}
 
