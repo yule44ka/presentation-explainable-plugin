@@ -155,6 +155,20 @@
     .result-slide h2 {
       text-align: center;
     }
+    .metric-slide {
+      font-size: 0.68em;
+    }
+    .metric-slide h3 {
+      margin: 0 0 0.2em;
+      text-align: center;
+      font-size: 1em;
+    }
+    .metric-slide p {
+      margin: 0.08em 0;
+    }
+    .metric-slide .MathJax {
+      margin: 0.06em 0 !important;
+    }
     .prompt-box {
       font-family: "Courier New", monospace;
       font-size: 0.58em;
@@ -327,6 +341,32 @@
         </ul>
       </section>
 
+      <section class="analysis-slide result-slide metric-slide">
+        <h2>Deterministic Metric</h2>
+        <p>Reference keys:</p>
+        \[
+        K_G = \bigcup_i K(G_i)
+        \]
+        <p>Predicted keys:</p>
+        \[
+        K_P = \bigcup_j K(P_j)
+        \]
+        <p>Precision:</p>
+        \[
+        \mathrm{KeyPrecision} = \frac{|K_P \cap K_G|}{|K_P|},
+        \]
+        <p>Recall:</p>
+        \[
+        \mathrm{KeyRecall} = \frac{|K_P \cap K_G|}{|K_G|},
+        \]
+        <p>F1:</p>
+        \[
+        \mathrm{KeyF1} =
+        \frac{2 \cdot \mathrm{KeyPrecision} \cdot \mathrm{KeyRecall}}
+        {\mathrm{KeyPrecision} + \mathrm{KeyRecall}}.
+        \]
+      </section>
+
       <section class="summary-slide">
         <h2>Summary</h2>
         <p>Done:</p>
@@ -336,7 +376,6 @@
         </ol>
         <p>Future steps:</p>
         <ol>
-          <li>Add deterministic metrics for evaluation</li>
           <li>Experiment with using agents for explanations</li>
           <li>Extend the dataset with more diverse domains</li>
           <li>Add support for other agents</li>
