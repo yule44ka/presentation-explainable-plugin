@@ -261,33 +261,6 @@ gpt-4.1      & \$2.00 & 0.786 & 0.80 & 0.65 & 0.83 & 0.80 & 0.85 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Deterministic Metric}
-\raggedright
-Reference keys:
-\[
-K_G = \bigcup_i K(G_i)
-\]
-Predicted keys:
-\[
-K_P = \bigcup_j K(P_j)
-\]
-
-Precision:
-\[
-\mathrm{KeyPrecision} = \frac{|K_P \cap K_G|}{|K_P|},
-\]
-Recall:
-\[
-\mathrm{KeyRecall} = \frac{|K_P \cap K_G|}{|K_G|},
-\]
-F1:
-\[
-\mathrm{KeyF1} =
-\frac{2 \cdot \mathrm{KeyPrecision} \cdot \mathrm{KeyRecall}}
-{\mathrm{KeyPrecision} + \mathrm{KeyRecall}}.
-\]
-\end{frame}
-
 \begin{frame}[t]{Summary}
 \raggedright
 Done:
