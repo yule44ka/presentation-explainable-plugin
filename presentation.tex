@@ -148,7 +148,8 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 
 \begin{frame}{High-level architecture}
 \centering
-\resizebox{1.02\linewidth}{!}{%
+\vspace{0.5cm}
+\resizebox{1.32\linewidth}{!}{%
 \begin{tikzpicture}[
     >=Latex,
     every node/.style={font=\small, align=center},
@@ -161,9 +162,7 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 \node[block] (updatedrepo) at (5,3) {Updated\\Repo};
 
 \node[block, minimum width=3.4cm] (diff) at (2.5,1.2) {Diff +\\Agent trace};
-\node[block] (explanation) at (8,1.2) {Explanation};
-
-\node[block, minimum width=3.0cm] (mapping) at (5.2,-0.4) {Mapping};
+\node[block, minimum width=4.0cm] (explanationmapping) at (7.3,1.2) {Explanations\\with Mapping};
 
 % Arrows
 \draw[line] (repo.east) -- node[above] {AI Agent} (updatedrepo.west);
@@ -171,10 +170,7 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 \draw[line] (repo.south) -- (diff.north west);
 \draw[line] (updatedrepo.south) -- (diff.north east);
 
-\draw[line] (diff.east) -- node[above] {} (explanation.west);
-
-\draw[line] (diff.south) -- (mapping.north west);
-\draw[line] (explanation.south) -- (mapping.north east);
+\draw[line] (diff.east) -- node[above] {AI Agent} (explanationmapping.west);
 
 \end{tikzpicture}%
 }
@@ -192,73 +188,6 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 \vspace{0.4cm}
 \normalsize Open the exported HTML on GitHub Pages to play it inline.
 \fi
-\end{frame}
-
-\begin{frame}{Dataset: nn.labml.ai}
-
-Collection of Machine Learning and Deep Learning algorithms with human-written explanations.
-
-\vspace{0.4cm}
-
-Each example is structured as aligned pairs:
-\begin{itemize}
-    \item Explanation$_1$ $\leftrightarrow$ Code segment$_1$
-    \item Explanation$_2$ $\leftrightarrow$ Code segment$_2$
-    \item $\dots$
-    \item Explanation$_n$ $\leftrightarrow$ Code segment$_n$
-\end{itemize}
-\end{frame}
-
-\begin{frame}[t]{LLM-as-a-Judge Metric}
-\raggedright
-\small
-Judge model: OpenAI o3\\
-Prompt fragment:
-\vspace{0.15cm}
-
-\begin{block}{Scoring approximate guide for "metric"}
-\ttfamily
-0.0-0.1 = awful quality: totally wrong or no segmentations and explanations\\
-0.1-0.3 = poor quality: wrong segmentation, vague or incorrect explanations, major concepts missing\\
-0.4-0.6 = acceptable quality: roughly correct structure, explanations partially match the reference\\
-0.7-0.9 = good quality: logical segmentation, accurate explanations, most concepts covered\\
-1.0 = excellent: segmentation, explanations and coverage are equivalent by quality to the reference
-\end{block}
-\end{frame}
-
-\begin{frame}[t]{Evaluation Results}
-\centering
-\raggedright
-\small Batch: 5 algorithms\\
-Representation: Bullet Points, High Detail
-\vspace{0.2cm}
-
-\begin{table}[h]
-\centering
-\begin{adjustbox}{width=\textwidth}
-\begin{tabular}{l c c @{\hspace{0.5cm}} ccccc}
-\toprule
-& & & \multicolumn{5}{c}{\textbf{Algorithms}} \\
-\cmidrule(lr){4-8}
-\textbf{Model} & \textbf{Price / 1M} & \textbf{Mean} & \textbf{Distillation} & \textbf{GAN} & \textbf{LSTM} & \textbf{BatchNorm} & \textbf{Adam} \\
-\midrule
-gpt-4o-mini  & \$0.15 & 0.416 & 0.50 & 0.55 & 0.25 & 0.28 & 0.50 \\
-gpt-4.1-mini & \$0.40 & 0.696 & 0.82 & 0.78 & 0.83 & 0.55 & 0.50 \\
-gpt-4.1      & \$2.00 & 0.786 & 0.80 & 0.65 & 0.83 & 0.80 & 0.85 \\
-\bottomrule
-\end{tabular}
-\end{adjustbox}
-\caption{Models comparison}
-\end{table}
-\end{frame}
-
-\begin{frame}[t]{Result Interpretation}
-\raggedright
-\begin{itemize}
-    \item \textbf{LSTM = 0.25} (gpt-4o-mini): Covers only a small part of the functionality, segmentation is coarse.
-    \item \textbf{Adam = 0.85} (gpt-4.1): Covers almost all blocks but less detalised, the descriptions are correct.
-    \item \textbf{Main takeaway}: Smaller and cheaper models tend to hallucinate mappings, resulting in incomplete code coverage and lower metric scores.
-\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Summary}
