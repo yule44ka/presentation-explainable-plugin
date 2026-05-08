@@ -1,0 +1,12 @@
+\frametitle{Code with Explanations}
+\centering
+\ifdefined\HCode
+% HTML build (e.g., via make4ht): render an inline video player.
+\HCode{<video controls preload="metadata" style="width:100%; max-width:2200px; max-height:95vh; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.18);"><source src="video_demo.mp4" type="video/mp4">Your browser does not support the video tag.</video>}
+\else
+% PDF build fallback.
+\Large Video demo is available in \texttt{video\_demo.mp4}
+
+\vspace{0.4cm}
+\normalsize Open the exported HTML on GitHub Pages to play it inline.
+\fi
