@@ -10,10 +10,9 @@
 }
 
 \usepackage[english]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{ulem}
 \usepackage{booktabs}
-\usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
@@ -58,7 +57,7 @@
 \vspace{-0.9cm}
 \begin{figure}
     \centering
-    \hspace*{0.02\linewidth}\includegraphics[width=1.04\linewidth]{problem.png}
+    \hspace*{0.02\linewidth}\includegraphics[width=1.04\linewidth]{problem1}
 \end{figure}
 \end{column}
 
@@ -176,7 +175,7 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 }
 \end{frame}
 
-\begin{frame}{Code with Explanations}
+\begin{frame}[fragile]{Code with Explanations}
 \centering
 \ifdefined\HCode
 % HTML build (e.g., via make4ht): render an inline video player.
@@ -190,19 +189,69 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 \fi
 \end{frame}
 
+\begin{frame}[t]{SWE-bench Verified Mini: Django subset}
+\scriptsize
+\setlength{\leftmargini}{1.2em}
+\textbf{What is in the dataset}
+\begin{itemize}\setlength{\itemsep}{0.08cm}
+    \item Real bug-fix tasks from \texttt{django/django}.
+    \item For each task: GitHub issue text, starting commit, Django version, and setup commit.
+    \item Reference solution: gold code patch and test patch.
+    \item Evaluation tests: \texttt{FAIL\_TO\_PASS} checks fixed by the patch and \texttt{PASS\_TO\_PASS} regression checks.
+\end{itemize}
+
+\vspace{0.05cm}
+\textbf{Why it is needed}
+\begin{itemize}\setlength{\itemsep}{0.08cm}
+    \item Gives realistic repository-level tasks without running the full SWE-bench Verified set.
+    \item Keeps evaluation focused on one codebase, so results are easier to compare and explain.
+    \item Provides ground truth patches and tests for measuring whether generated code and explanations match the real fix.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Evaluation Plan}
+\scriptsize
+\begin{enumerate}\setlength{\itemsep}{0.12cm}
+    \item Run each Django task twice: baseline agent and agent with explanations.
+    \item Check correctness with the dataset test patch and existing regression tests.
+    \item Compare solved tasks: \texttt{PASS}/\texttt{FAIL} before and after explanations.
+    \item Compare agent efficiency: number of actions on tasks with passed evaluation.
+    \item Review explanations for grounding: do they describe the actual code changes?
+\end{enumerate}
+
+\vspace{0.18cm}
+\textbf{Explanations:} Junie gemini-3.1-flash-lite-preview\\
+\textbf{Code generation:} Junie gemini-3-flash-preview
+\end{frame}
+
+\begin{frame}{Results}
+\centering
+\includegraphics[width=0.72\linewidth,height=0.68\textheight,keepaspectratio]{django_success_count_comparison.png}
+
+\vspace{0.12cm}
+\footnotesize Solved Django tasks before and after adding explanations.
+\end{frame}
+
+\begin{frame}{Results}
+\centering
+\includegraphics[width=0.96\linewidth,height=0.68\textheight,keepaspectratio]{django_agent_actions_with_passed_tests.png}
+
+\vspace{0.12cm}
+\footnotesize Agent action counts on Django tasks with passed evaluation.
+\end{frame}
+
 \begin{frame}[t]{Summary}
 \raggedright
-Done:
-\begin{enumerate}
-    \item Plugin prototype
-    \item Initial evaluation
-\end{enumerate}
-Future steps:
-\begin{enumerate}
-    \item Experiment with using agents for explanations
-    \item Extend the dataset with more diverse domains
-    \item Add support for other agents
-\end{enumerate}
+\scriptsize
+\begin{itemize}\setlength{\itemsep}{0.14cm}
+    \item Built a prototype for code generation with aligned explanations.
+    \item Prepared a Django-only evaluation setup using SWE-bench Verified Mini.
+    \item Initial result: solved tasks stayed at 20/25 after adding explanations.
+    \item On passed tasks, explanations reduced Junie's actions in 12/20 cases.
+\end{itemize}
+
+\vspace{0.12cm}
+\textbf{Next:} evaluate explanation grounding and extend experiments to more repositories and agents.
 \end{frame}
 
 % \begin{frame}{Done work till now}
