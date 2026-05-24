@@ -145,7 +145,7 @@ Build a code assistant that \textbf{generates code and human-friendly explanatio
 % \end{figure}
 % \end{frame}
 
-\begin{frame}{High-level architecture}
+\begin{frame}{System's High-level architecture}
 \centering
 \vspace{0.5cm}
 \resizebox{1.32\linewidth}{!}{%
@@ -203,13 +203,13 @@ arXiv, 16 Apr 2026 \\
 \fi
 \end{frame}
 
-\begin{frame}[t]{SWE-bench Verified Mini: Django subset}
+\begin{frame}[t]{SWE-bench Verified Mini Dataset}
 \scriptsize
 \setlength{\leftmargini}{1.2em}
 \textbf{What is in the dataset}
 \begin{itemize}\setlength{\itemsep}{0.08cm}
-    \item Real bug-fix tasks from \texttt{django/django}.
-    \item For each task: GitHub issue text, starting commit, Django version, and setup commit.
+    \item 50 real bug-fix tasks from Django and Sphinx.
+    \item For each task: GitHub issue text, starting commit, project version, and setup commit.
     \item Reference solution: gold code patch and test patch.
     \item Evaluation tests: \texttt{FAIL\_TO\_PASS} checks fixed by the patch and \texttt{PASS\_TO\_PASS} regression checks.
 \end{itemize}
@@ -218,7 +218,7 @@ arXiv, 16 Apr 2026 \\
 \textbf{Why it is needed}
 \begin{itemize}\setlength{\itemsep}{0.08cm}
     \item Gives realistic repository-level tasks without running the full SWE-bench Verified set.
-    \item Keeps evaluation focused on one codebase, so results are easier to compare and explain.
+    \item Keeps evaluation focused on two mature Python codebases, so results are easier to compare and explain.
     \item Provides ground truth patches and tests for measuring whether generated code and explanations match the real fix.
 \end{itemize}
 \end{frame}
@@ -236,22 +236,6 @@ arXiv, 16 Apr 2026 \\
 \vspace{0.18cm}
 \textbf{Explanations:} Junie gemini-3.1-flash-lite-preview\\
 \textbf{Code generation:} Junie gemini-3-flash-preview
-\end{frame}
-
-\begin{frame}{Results}
-\centering
-\includegraphics[width=0.72\linewidth,height=0.68\textheight,keepaspectratio]{django_success_count_comparison.png}
-
-\vspace{0.12cm}
-\footnotesize Solved Django tasks before and after adding explanations.
-\end{frame}
-
-\begin{frame}{Results}
-\centering
-\includegraphics[width=0.96\linewidth,height=0.68\textheight,keepaspectratio]{django_agent_actions_with_passed_tests.png}
-
-\vspace{0.12cm}
-\footnotesize Agent action counts on Django tasks with passed evaluation.
 \end{frame}
 
 \begin{frame}[t]{Summary}

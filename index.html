@@ -211,7 +211,7 @@
       </section>
 
       <section>
-        <h2>High-level architecture</h2>
+        <h2>System's High-level architecture</h2>
         <svg viewBox="0 0 980 280" style="width:138%; max-width:none; height:auto; margin-left:-14%;">
           <defs>
             <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="2" orient="auto">
@@ -262,12 +262,12 @@
       </section>
 
       <section class="dataset-slide">
-        <h2>SWE-bench Verified Mini Dataset: Django subset</h2>
+        <h2>SWE-bench Verified Mini Dataset</h2>
         <ul>
-          <li>25 real bug-fix tasks from Django repository</li>
+          <li>50 real bug-fix tasks from Django and Sphinx</li>
           <li>Input: starting commit, GitHub issue text</li>
           <li>Correctness check: existing tests, test patch</li>
-          <li>Is used for code generation system's performance evaluation, including AI agents</li>
+          <li>Is used for code generation systems evaluation</li>
         </ul>
       </section>
 
@@ -281,18 +281,6 @@
           <li>Run each Django task twice: baseline repo and repo with inserted explanations</li>
           <li>Check correctness with the test patch and existing regression tests</li>
         </ol>
-      </section>
-
-      <section class="result-slide">
-        <h2>Results</h2>
-        <img src="django_success_count_comparison.png" alt="Junie solved Django tasks before and after explanations">
-        <p class="caption">Solved Django tasks before and after adding explanations.</p>
-      </section>
-
-      <section class="result-slide">
-        <h2>Results</h2>
-        <img src="django_agent_actions_with_passed_tests.png" alt="Junie agent actions only for tasks with passed eval">
-        <p class="caption">Agent action counts on Django tasks with passed evaluation. With explanations agent on 12/20 (60%) tasks did fewer number of actions.</p>
       </section>
 
       <section class="summary-slide">
