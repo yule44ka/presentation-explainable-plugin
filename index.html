@@ -132,6 +132,60 @@
     .summary-slide p {
       margin-left: 0.6em;
     }
+    .summary-slide .summary-list {
+      width: 86%;
+      margin: 0.55em auto 0;
+      font-size: 0.78em;
+      line-height: 1.22;
+    }
+    .summary-slide .summary-list li {
+      margin-bottom: 0.38em;
+    }
+    .summary-slide .summary-next {
+      width: 86%;
+      margin: 0.48em auto 0;
+      padding-left: 0;
+      border-left: 0;
+      font-size: 0.72em;
+      line-height: 1.22;
+      text-align: left;
+    }
+    .summary-slide .contribution-layout {
+      width: 104%;
+      margin-left: -2%;
+      display: grid;
+      grid-template-columns: 1fr 0.34fr;
+      gap: 0.7em;
+      align-items: center;
+    }
+    .summary-slide .contribution-list {
+      margin: 0;
+      padding-left: 1.05em;
+      font-size: 0.74em;
+      line-height: 1.14;
+    }
+    .summary-slide .contribution-list li {
+      margin-bottom: 0.48em;
+    }
+    .summary-slide .contribution-list strong {
+      color: #222;
+    }
+    .summary-slide .qr-panel {
+      text-align: center;
+    }
+    .summary-slide .qr-panel img {
+      width: 100%;
+      max-width: 230px;
+      margin: 0 auto 0.28em;
+      display: block;
+      border: 1px solid #d8e0e5;
+    }
+    .summary-slide .qr-panel p {
+      margin: 0;
+      font-size: 0.42em;
+      line-height: 1.15;
+      color: #333;
+    }
     .reveal .slide-number {
       bottom: 24px;
       right: 115px;
@@ -142,6 +196,36 @@
       border: none;
       border-radius: 0;
       padding: 0;
+    }
+    .custom-slide-number {
+      position: fixed;
+      right: 115px;
+      bottom: 24px;
+      z-index: 40;
+      color: #0e4f67;
+      font-size: 1.35em;
+      font-weight: 700;
+      font-family: var(--r-main-font);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .print-slide-number {
+      display: none;
+    }
+    @media print {
+      .custom-slide-number {
+        display: none;
+      }
+      .print-slide-number {
+        display: block;
+        position: absolute;
+        right: 48px;
+        bottom: 24px;
+        color: #0e4f67;
+        font-size: 0.54em;
+        font-weight: 700;
+        line-height: 1;
+      }
     }
     .analysis-slide {
       text-align: left;
@@ -178,139 +262,669 @@
       padding: 12px 14px;
       white-space: pre-wrap;
     }
+    .reveal .slides section.plugin-slide {
+      height: 100%;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .plugin-slide h2 {
+      flex: 0 0 auto;
+      font-size: 0.95em;
+      margin: 0 0 0.08em;
+    }
+    .plugin-slide .shot {
+      display: block;
+      width: 126%;
+      max-width: none;
+      max-height: 84vh;
+      margin-left: -13%;
+      object-fit: contain;
+    }
+    .plugin-slide .shot.tall {
+      max-height: 85vh;
+    }
+    .plugin-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 124%;
+      margin-left: -12%;
+      align-items: start;
+    }
+    .plugin-pair figure {
+      margin: 0;
+    }
+    .plugin-pair img {
+      display: block;
+      width: 100%;
+      max-width: none;
+      max-height: 78vh;
+      object-fit: contain;
+    }
+    .plugin-pair figcaption {
+      margin-top: 0.16em;
+      font-size: 0.42em;
+      font-weight: 700;
+      color: #0e4f67;
+      text-align: center;
+    }
+    .plugin-slide .note {
+      margin: 0.25em 0 0;
+      font-size: 0.48em;
+      color: #333;
+      text-align: center;
+    }
+    .reveal .slides section.plugin-slide.drop-content {
+      padding-top: 2.61em;
+      box-sizing: border-box;
+    }
+    .plugin-slide.drop-content h2 {
+      font-size: 1.18em;
+      margin-bottom: 0.16em;
+    }
+    .plugin-slide.drop-content .plugin-pair,
+    .plugin-slide.drop-content .shot {
+      margin-top: 0;
+    }
+    .eval-table-slide {
+      text-align: left;
+    }
+    .eval-table-slide h2 {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 0.35em;
+    }
+    .eval-table-slide table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.52em;
+      line-height: 1.18;
+      margin: 0 auto 0.46em;
+      border: 1px solid #cbd5dc;
+    }
+    .eval-table-slide th,
+    .eval-table-slide td {
+      border: 1px solid #d8e0e5;
+      padding: 7px 8px;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .eval-table-slide th:first-child,
+    .eval-table-slide td:first-child,
+    .eval-table-slide th:nth-child(2),
+    .eval-table-slide td:nth-child(2) {
+      text-align: left;
+    }
+    .eval-table-slide thead th {
+      background: #f3f7f9;
+      color: #0e4f67;
+      font-weight: 700;
+    }
+    .eval-table-slide tbody tr.highlight td {
+      background: #f1f9fd;
+      font-weight: 700;
+    }
+    .eval-table-slide .improved {
+      background: #e8f7ee;
+      color: #176c3a;
+      font-weight: 800;
+    }
+    .eval-table-slide .small-caption {
+      margin: 0.1em 0 0.3em;
+      text-align: center;
+      font-size: 0.44em;
+      color: #4a4a4a;
+    }
+    .eval-table-slide .two-tables {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.18em;
+    }
+    .eval-table-slide .tight-table {
+      font-size: 0.50em;
+    }
+    .eval-table-slide .large-result-table {
+      font-size: 0.64em;
+      margin-top: 0.35em;
+    }
+    .hypothesis-slide {
+      text-align: left;
+    }
+    .hypothesis-slide h2 {
+      text-align: center;
+      margin-bottom: 0.65em;
+    }
+    .hypothesis-list {
+      width: 88%;
+      margin: 0 auto;
+      display: grid;
+      gap: 0.72em;
+      font-size: 0.82em;
+      line-height: 1.22;
+    }
+    .hypothesis-item {
+      border-left: 5px solid var(--accent);
+      padding: 0.05em 0 0.05em 0.62em;
+    }
+    .hypothesis-item strong {
+      color: var(--accent);
+    }
+    .dataset-card-slide h2 {
+      text-align: center;
+      margin-bottom: 0.28em;
+    }
+    .dataset-card-slide .dataset-intro {
+      width: 96%;
+      margin: 0 auto 0.48em;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1.25;
+    }
+    .dataset-card-slide .mapping-demo {
+      width: 116%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 0.18fr 1fr;
+      gap: 0.28em;
+      align-items: center;
+      margin-left: -8%;
+    }
+    .dataset-card-slide .demo-panel {
+      border: 1px solid #d8e0e5;
+      background: #f7fafc;
+      padding: 0.58em 0.64em;
+      text-align: left;
+    }
+    .dataset-card-slide .demo-panel h3 {
+      margin: 0 0 0.3em;
+      font-size: 0.78em;
+      color: var(--accent);
+    }
+    .dataset-card-slide pre {
+      width: 100%;
+      margin: 0;
+      font-family: "Courier New", monospace;
+      font-size: 0.46em;
+      line-height: 1.2;
+      white-space: pre;
+      overflow: visible;
+      box-shadow: none;
+    }
+    .dataset-card-slide .explanation-lines {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+      font-size: 0.62em;
+      line-height: 1.24;
+    }
+    .dataset-card-slide .explanation-lines li {
+      margin-bottom: 0.32em;
+      padding: 0.18em 0.24em;
+    }
+    .dataset-card-slide .map-a {
+      background: #ffd4df;
+    }
+    .dataset-card-slide .map-b {
+      background: #d5f6da;
+    }
+    .dataset-card-slide .map-c {
+      background: #ffe0b8;
+    }
+    .dataset-card-slide .mapping-arrow {
+      text-align: center;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.82em;
+      line-height: 1.05;
+    }
+    .dataset-card-slide .dataset-note {
+      width: 88%;
+      margin: 0.52em auto 0;
+      padding-left: 0.65em;
+      border-left: 5px solid var(--accent);
+      text-align: left;
+      font-size: 0.48em;
+      line-height: 1.28;
+    }
+    .reveal .slides section.judge-method-slide {
+      height: 100%;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 50px;
+      box-sizing: border-box;
+    }
+    .judge-method-slide h2 {
+      text-align: center;
+      margin: 0 0 0.08em;
+    }
+    .judge-method-slide .judge-layout {
+      width: 82%;
+      margin: 0 auto;
+      display: block;
+    }
+    .judge-method-slide .judge-points {
+      text-align: left;
+      font-size: 1em;
+      line-height: 1.22;
+      margin: 0;
+      padding-left: 1.05em;
+    }
+    .judge-method-slide .judge-points li {
+      margin-bottom: 0.56em;
+    }
+    .judge-method-slide .judge-text {
+      width: 88%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1.18;
+    }
+    .judge-method-slide .prompt-snippet {
+      display: block;
+      width: 94%;
+      margin: 0.28em 0 0;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.78em 0.92em;
+      border: 1px solid #cfe3ef;
+      background: #f6fbfe;
+      font-family: "Courier New", monospace;
+      font-size: 0.54em;
+      line-height: 1.28;
+      white-space: pre-wrap;
+      text-align: left;
+      box-shadow: 0 6px 18px rgba(14, 79, 103, 0.08);
+    }
+    .judge-method-slide .judge-tag {
+      display: inline-block;
+      margin-bottom: 0.42em;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.52em;
+    }
   </style>
 </head>
 <body>
-  <div class="reveal">
-    <div class="slides">
-      <section class="title-slide">
-        <h2>Explainable AI Code Generation Assistant</h2>
-        <p>Author: Iuliia Liutova<br>Supervisor: Alexander Avdiushenko</p>
-        <p class="small">Neapolis University Paphos</p>
-      </section>
+<div class="reveal">
+  <div class="slides">
+    <section class="title-slide">
+      <h2>Explainable AI Code Generation Assistant</h2>
+      <p>Author: Iuliia Liutova<br>Supervisor: Alexander Avdiushenko</p>
+      <p class="small">Neapolis University Paphos</p>
+    </section>
 
-      <section>
-        <h2>Problem</h2>
-        <div style="display:flex; gap:0; align-items:flex-start;">
-          <div style="width:40%;">
-            <ul>
-              <li>LLMs write code, but do not explain decisions clearly</li>
-              <li>No mapping between summary and code</li>
-            </ul>
-          </div>
-          <div style="width:60%;">
-            <img src="problem.png" alt="Problem illustration" style="width:90%; max-width:none; margin-left:0; margin-top:0px;">
-          </div>
+    <section>
+      <h2>Problem</h2>
+      <div style="display:flex; gap:0; align-items:flex-start;">
+        <div style="width:40%;">
+          <ul>
+            <li>LLMs write code, but do not explain decisions clearly</li>
+            <li>No mapping between summary and code</li>
+          </ul>
         </div>
-      </section>
-
-      <section>
-        <h2>Goal</h2>
-        <p>Build a code assistant that <strong>generates code and explanations</strong> aligned with the code.</p>
-        <img src="goal.png" alt="Goal illustration" style="width:100%;">
-      </section>
-
-      <section>
-        <h2>System's High-level architecture</h2>
-        <svg viewBox="0 0 980 280" style="width:138%; max-width:none; height:auto; margin-left:-14%;">
-          <defs>
-            <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="2" orient="auto">
-              <path d="M0,0 L0,4 L6,2 z" fill="#333"></path>
-            </marker>
-          </defs>
-          <rect x="40" y="30" width="180" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
-          <text x="130" y="73" text-anchor="middle" font-size="24">Repo</text>
-
-          <rect x="340" y="30" width="220" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
-          <text x="450" y="64" text-anchor="middle" font-size="24">Updated</text>
-          <text x="450" y="92" text-anchor="middle" font-size="24">Repo</text>
-
-          <rect x="140" y="165" width="260" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
-          <text x="270" y="208" text-anchor="middle" font-size="24">Diff + Agent Trace</text>
-
-          <rect x="590" y="165" width="300" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
-          <text x="740" y="194" text-anchor="middle" font-size="24">Explanations</text>
-          <text x="740" y="222" text-anchor="middle" font-size="24">with Mapping</text>
-
-          <line x1="220" y1="65" x2="340" y2="65" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
-          <text x="280" y="52" text-anchor="middle" font-size="18">AI Agent</text>
-
-          <line x1="115" y1="100" x2="210" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
-          <line x1="450" y1="100" x2="330" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
-          <line x1="400" y1="200" x2="590" y2="200" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
-          <text x="495" y="188" text-anchor="middle" font-size="18">AI Agent</text>
-        </svg>
-      </section>
-
-      <section class="analysis-slide">
-        <h2>Relevance</h2>
-        <p>Researchers from Meta and academic collaborators introduced a framework for scaling test-time compute in long-horizon coding agents.</p>
-        <p>They transitioned away from using raw agent traces in favor of structured summaries.</p>
-        <p class="small"><strong>Scaling Test-Time Compute for Agentic Coding</strong><br>
-        arXiv, 16 Apr 2026<br>
-        <a href="https://arxiv.org/abs/2604.16529">https://arxiv.org/abs/2604.16529</a></p>
-      </section>
-
-      <section class="video-slide">
-        <h2>Code with Explanations</h2>
-        <div class="video-wrap">
-          <video controls preload="metadata">
-            <source src="video_demo.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+        <div style="width:60%;">
+          <img src="images/problem.png" alt="Problem illustration" style="width:90%; max-width:none; margin-left:0; margin-top:0px;">
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="dataset-slide">
-        <h2>SWE-bench Verified Mini Dataset</h2>
-        <ul>
-          <li>50 real bug-fix tasks from Django and Sphinx</li>
-          <li>Input: starting commit, GitHub issue text</li>
-          <li>Correctness check: existing tests, test patch</li>
-          <li>Is used for code generation systems evaluation</li>
-        </ul>
-      </section>
+    <section>
+      <h2>Goal</h2>
+      <p>Build a code assistant that <strong>generates code and explanations</strong> aligned with the code.</p>
+      <img src="images/goal.png" alt="Goal illustration" style="width:100%;">
+    </section>
 
-      <section class="analysis-slide">
-        <h2>Evaluation Plan</h2>
-        <p><strong>Explanations:</strong> Junie gemini-3.1-flash-lite-preview<br>
+    <section>
+      <h2>IntelliJ Plugin's High-level architecture</h2>
+      <svg viewBox="0 0 980 280" style="width:138%; max-width:none; height:auto; margin-left:-14%;">
+        <defs>
+          <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="2" orient="auto">
+            <path d="M0,0 L0,4 L6,2 z" fill="#333"></path>
+          </marker>
+        </defs>
+        <rect x="40" y="30" width="180" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+        <text x="130" y="73" text-anchor="middle" font-size="24">Repo</text>
+
+        <rect x="340" y="30" width="220" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+        <text x="450" y="64" text-anchor="middle" font-size="24">Updated</text>
+        <text x="450" y="92" text-anchor="middle" font-size="24">Repo</text>
+
+        <rect x="140" y="165" width="260" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+        <text x="270" y="208" text-anchor="middle" font-size="24">Diff + Agent Trace</text>
+
+        <rect x="590" y="165" width="300" height="70" rx="12" fill="#fff" stroke="#333" stroke-width="2"></rect>
+        <text x="740" y="194" text-anchor="middle" font-size="24">Explanations</text>
+        <text x="740" y="222" text-anchor="middle" font-size="24">with Mapping</text>
+
+        <line x1="220" y1="65" x2="340" y2="65" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <text x="280" y="52" text-anchor="middle" font-size="18">AI Agent</text>
+
+        <line x1="115" y1="100" x2="210" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="450" y1="100" x2="330" y2="165" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="400" y1="200" x2="590" y2="200" stroke="#333" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <text x="495" y="188" text-anchor="middle" font-size="18">AI Agent</text>
+      </svg>
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Plugin Modes</h2>
+      <div class="plugin-pair">
+        <figure>
+          <img src="images/image_2026-05-18_15-54-03.png" alt="Explanation Generator mode in the AI assistant plugin">
+          <figcaption>Explanation Generator</figcaption>
+        </figure>
+        <figure>
+          <img src="images/image_2026-05-18_15-53-06.png" alt="Code Generation mode in the AI assistant plugin">
+          <figcaption>Code Generation</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="plugin-slide">
+      <h2>OpenAI Model Selection</h2>
+      <img class="shot tall" src="images/image_2026-05-28_16-16-22.png" alt="OpenAI model dropdown with GPT model options and pricing">
+    </section>
+
+    <section class="plugin-slide drop-content">
+      <h2>Custom Explanation Style</h2>
+      <div class="plugin-pair">
+        <figure>
+          <img src="images/image_2026-05-28_16-16-37.png" alt="Detail level dropdown with low, medium, and high detail options">
+          <figcaption>Detail level</figcaption>
+        </figure>
+        <figure>
+          <img src="images/image_2026-05-28_16-16-56.png" alt="Format dropdown with paragraph and bullet points options">
+          <figcaption>Format</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Paragraph</h2>
+      <img class="shot" src="images/image_2026-05-19_18-33-57.png" alt="Code editor and AI assistant showing the comparison logic explanation mapped to highlighted code">
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Paragraph</h2>
+      <img class="shot" src="images/image_2026-05-19_18-34-03.png" alt="Code editor and AI assistant showing paragraph explanation mapped to highlighted code">
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Paragraph</h2>
+      <img class="shot" src="images/image_2026-05-19_18-34-18.png" alt="Code editor and AI assistant showing a paragraph explanation segment mapped to highlighted code">
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Bullet Points</h2>
+      <img class="shot" src="images/image_2026-05-19_18-33-20.png" alt="Code editor and AI assistant showing the full bullet point explanation mapped to highlighted code">
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Bullet Points</h2>
+      <img class="shot" src="images/image_2026-05-19_18-33-37.png" alt="Code editor and AI assistant showing the search boundary explanation mapped to highlighted code">
+    </section>
+
+    <section class="plugin-slide">
+      <h2>Mapping: Bullet Points</h2>
+      <img class="shot" src="images/image_2026-05-19_18-33-46.png" alt="Code editor and AI assistant showing the loop condition explanation mapped to highlighted code">
+    </section>
+
+    <section class="hypothesis-slide">
+      <h2>Research Hypotheses</h2>
+      <div class="hypothesis-list">
+        <div class="hypothesis-item">
+          <strong>H1.</strong> The system can generate explanations that are close to human-written explanations in clarity, structure, and grounding in the actual code.
+        </div>
+        <div class="hypothesis-item">
+          <strong>H2.</strong> Adding grounded explanations to the repository can improve the coding agent's repair performance without introducing regressions.
+        </div>
+      </div>
+    </section>
+
+    <section class="dataset-card-slide">
+      <h2>labml.ai Reference Dataset</h2>
+      <p class="dataset-intro">
+        The dataset contains educational machine-learning code with human-written explanations already mapped to the code regions they describe.
+      </p>
+      <div class="mapping-demo">
+        <div class="demo-panel">
+          <h3>Code fragment</h3>
+          <pre><span class="map-a">for t in range(seq_len):</span>
+    <span class="map-b">i, f, g, o = gates[t].chunk(4)</span>
+    <span class="map-c">c = f * c + i * g</span>
+    <span class="map-c">h = o * tanh(c)</span></pre>
+        </div>
+        <div class="mapping-arrow">
+          mapped<br>
+          ->
+        </div>
+        <div class="demo-panel">
+          <h3>Human explanation</h3>
+          <ul class="explanation-lines">
+            <li class="map-a">Iterates through the sequence one timestep at a time.</li>
+            <li class="map-b">Splits the recurrent layer output into LSTM gates.</li>
+            <li class="map-c">Updates cell and hidden state using gated memory.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="judge-method-slide">
+      <h2>LLM-as-a-Judge Evaluation</h2>
+      <p class="judge-text">The judge compares generated explanations with the human-written reference. The evaluator model is <strong>OpenAI o3</strong>.</p>
+      <pre class="prompt-snippet">Compare the generated explanation components against the reference components.
+
+Evaluate whether the generated explanation:
+- covers the same code behavior
+- is correct and clear
+- maps to the same code regions
+
+Return a score from 0.0 to 1.0.</pre>
+    </section>
+
+    <section class="eval-table-slide">
+      <h2>LLM-as-a-Judge Results</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Method</th>
+          <th>Price / 1M input tokens</th>
+          <th>Mean</th>
+          <th>Median</th>
+          <th>Min</th>
+          <th>Max</th>
+          <th>Avg. generated components</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td rowspan="3">OpenAI</td>
+          <td>gpt-4o-mini</td>
+          <td>$0.15</td>
+          <td>0.416</td>
+          <td>0.500</td>
+          <td>0.250</td>
+          <td>0.550</td>
+          <td>10.2</td>
+        </tr>
+        <tr>
+          <td>gpt-4.1-mini</td>
+          <td>$0.40</td>
+          <td class="improved">0.696</td>
+          <td>0.780</td>
+          <td>0.500</td>
+          <td>0.830</td>
+          <td>19.6</td>
+        </tr>
+        <tr>
+          <td>gpt-4.1</td>
+          <td>$2.00</td>
+          <td class="improved">0.786</td>
+          <td>0.800</td>
+          <td>0.650</td>
+          <td>0.850</td>
+          <td>16.6</td>
+        </tr>
+        <tr>
+          <td>Junie</td>
+          <td>Junie (gemini-3.1-flash-lite)</td>
+          <td>-</td>
+          <td class="improved">0.752</td>
+          <td>0.780</td>
+          <td>0.650</td>
+          <td>0.800</td>
+          <td>8.4</td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="small-caption">H1 confirmed: generated explanations are close to the human-written reference.<br>Reference explanations contain 25.4 components on average.</p>
+    </section>
+
+    <section class="dataset-slide">
+      <h2>SWE-bench Verified Mini Dataset</h2>
+      <ul>
+        <li>50 real bug-fix tasks from Django and Sphinx</li>
+        <li><strong>Input:</strong> starting commit, GitHub issue text</li>
+        <li><strong>Correctness check:</strong> existing tests, test patch</li>
+        <li>Is used for code generation systems evaluation</li>
+      </ul>
+    </section>
+
+    <section class="analysis-slide">
+      <h2>Evaluation Plan</h2>
+      <p><strong>Explanations:</strong> Junie gemini-3.1-flash-lite-preview<br>
         <strong>Code generation:</strong> Junie gemini-3-flash-preview</p>
-        <ol>
-          <li>Run system to compose code explanations on files from gold patch and 10 random files</li>
-          <li>Insert explanations as comments</li>
-          <li>Run each Django task twice: baseline repo and repo with inserted explanations</li>
-          <li>Check correctness with the test patch and existing regression tests</li>
+      <ol>
+        <li>Run system to compose code explanations on files from gold patch and 10 random files</li>
+        <li>Insert explanations as comments</li>
+        <li>Run each task twice: <strong>baseline repo</strong> and <strong>repo with inserted explanations</strong></li>
+        <li>Check correctness with the test patch and existing regression tests</li>
+      </ol>
+    </section>
+
+    <section class="eval-table-slide">
+      <h2>SWE-bench Verified Mini Results</h2>
+      <div class="two-tables">
+        <table class="tight-table large-result-table">
+          <thead>
+          <tr>
+            <th>Dataset</th>
+            <th>Tasks</th>
+            <th>Regular solved</th>
+            <th>Explained solved</th>
+            <th>Regular rate</th>
+            <th>Explained rate</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Django</td>
+            <td>25</td>
+            <td>20</td>
+            <td>20</td>
+            <td>80%</td>
+            <td>80%</td>
+          </tr>
+          <tr>
+            <td>Sphinx</td>
+            <td>25</td>
+            <td>12</td>
+            <td class="improved">13</td>
+            <td>48%</td>
+            <td class="improved">52%</td>
+          </tr>
+          <tr>
+            <td>Combined</td>
+            <td>50</td>
+            <td>32</td>
+            <td class="improved">33</td>
+            <td>64%</td>
+            <td class="improved">66%</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small-caption">H2 confirmed: explanation-enriched repositories solved one additional task with no observed regression.</p>
+    </section>
+
+    <section class="summary-slide">
+      <h2>Contributions</h2>
+      <div class="contribution-layout">
+        <ol class="contribution-list">
+          <li><strong>Plugin:</strong> implemented a JetBrains IntelliJ plugin for code generation with mapped explanations.</li>
+          <li><strong>Evaluation:</strong> composed an evaluation approach based on two datasets: labml.ai and SWE-bench Verified Mini.</li>
+          <li><strong>H1 confirmed:</strong> generated explanations are close to human-written references, with the best mean score reaching <strong>78.6%</strong>.</li>
+          <li><strong>H2 confirmed:</strong> explanation-enriched repositories achieved <strong>66%</strong> accuracy on SWE-bench Verified Mini.</li>
         </ol>
-      </section>
-
-      <section class="summary-slide">
-        <h2>Summary</h2>
-        <ul>
-          <li>Built a plugin for code generation with aligned explanations</li>
-          <li>Prepared an evaluation setup using SWE-bench Verified Mini subset</li>
-        </ul>
-        <p><strong>Next:</strong> extend experiments to more repos and agents</p>
-      </section>
-    </div>
+        <div class="qr-panel">
+          <img src="images/github-plugin-qr.png" alt="GitHub QR code for the IntelliJ plugin repository">
+          <p>GitHub<br>yule44ka/explainable-ai-plugin</p>
+        </div>
+      </div>
+    </section>
   </div>
+</div>
+<div class="custom-slide-number" aria-hidden="true"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/math/math.js"></script>
-  <script>
-    Reveal.initialize({
-      hash: true,
-      slideNumber: "c/t",
-      controls: true,
-      progress: true,
-      math: {
-        mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
-        tex: {
-          inlineMath: [["\\(", "\\)"], ["$", "$"]]
-        }
-      },
-      plugins: [ RevealMath.MathJax3 ],
-      transition: "slide"
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/math/math.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: false,
+    controls: true,
+    progress: true,
+    math: {
+      mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+      tex: {
+        inlineMath: [["\\(", "\\)"], ["$", "$"]]
+      }
+    },
+    plugins: [ RevealMath.MathJax3 ],
+    transition: "slide"
+  });
+
+  const groupedSlideTotal = 13;
+
+  function formatSlideNumber(index) {
+    const current = index + 1;
+    if (current >= 5 && current <= 13) {
+      return `5.${current - 4} / ${groupedSlideTotal}`;
+    }
+    if (current >= 14) {
+      return `${current - 8} / ${groupedSlideTotal}`;
+    }
+    return `${current} / ${groupedSlideTotal}`;
+  }
+
+  function updateGroupedSlideNumber() {
+    const slideNumber = document.querySelector(".custom-slide-number");
+    if (!slideNumber) return;
+    slideNumber.textContent = formatSlideNumber(Reveal.getIndices().h);
+  }
+
+  function addPrintSlideNumbers() {
+    document.querySelectorAll(".reveal .slides > section").forEach((section, index) => {
+      let number = section.querySelector(":scope > .print-slide-number");
+      if (!number) {
+        number = document.createElement("div");
+        number.className = "print-slide-number";
+        section.appendChild(number);
+      }
+      number.textContent = formatSlideNumber(index);
     });
-  </script>
+  }
+
+  Reveal.on("ready", updateGroupedSlideNumber);
+  Reveal.on("ready", addPrintSlideNumbers);
+  Reveal.on("slidechanged", updateGroupedSlideNumber);
+  Reveal.on("overviewhidden", updateGroupedSlideNumber);
+  setTimeout(updateGroupedSlideNumber, 0);
+  setTimeout(addPrintSlideNumbers, 0);
+</script>
 </body>
 </html>
